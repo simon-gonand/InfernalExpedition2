@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
     private bool _isInteracting = false;
     public bool isInteracting { get { return _isInteracting; } set { _isInteracting = value; } }
 
+    private bool _isCarrying = false;
+    public bool isCarrying { get { return _isCarrying; } set { _isCarrying = value; } }
+
     private bool _isOnBoat = true;
     public bool isOnBoat { get { return _isOnBoat; } set { _isOnBoat = value; } }
 
@@ -39,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (isInteracting && interactingWith != null)
+        if (_isInteracting && interactingWith != null)
             interactingWith.OnMove(context.ReadValue<Vector2>());
         else
             playerMovementInput = context.ReadValue<Vector2>();
@@ -47,14 +50,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnAction(InputAction.CallbackContext context)
     {
-        if (isInteracting && context.performed)
+        if ((_isInteracting || _isCarrying) && context.performed)
             interactingWith.OnAction();
         // else attack on action pressed
     }
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        Debug.Log("saucisse");
         if (context.performed)
         {
             selfRigidBody.AddForce(self.forward * dashSpeed, ForceMode.Impulse);
@@ -63,20 +65,20 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteraction(InputAction.CallbackContext context)
     {
-        if (!isInteracting && context.performed)
+        if (!_isInteracting && !_isCarrying && context.performed)
         {
             Vector3 startRayPos = self.position;
             startRayPos.y -= self.lossyScale.y / 2;
 
             RaycastHit hit;
-            int layerMask = 1 << LayerMask.NameToLayer("Equipment");
+            int layerMask = 1 << LayerMask.NameToLayer("Interactable");
             if (Physics.Raycast(startRayPos, self.forward, out hit, interactionDistance, layerMask))
             {
                 interactingWith = hit.collider.gameObject.GetComponent<IInteractable>();
                 interactingWith.InteractWith(this);
             }
         }
-        else if (isInteracting && context.performed)
+        else if ((_isInteracting || _isCarrying) && context.performed)
         {
             interactingWith.UninteractWith(this);
             interactingWith = null;
@@ -94,7 +96,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isInteracting)
-            PlayerMovement();
+        PlayerMovement();
     }
 }
