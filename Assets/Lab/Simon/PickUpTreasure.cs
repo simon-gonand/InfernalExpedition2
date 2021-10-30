@@ -49,15 +49,8 @@ public class PickUpTreasure : MonoBehaviour, IInteractable
         player.isCarrying = false;
         playerInteractingWith = null;
         self.SetParent(null);
-        StartCoroutine(ApplyGravity());
-    }
-
-    IEnumerator ApplyGravity()
-    {
-        while (!Physics.Raycast(self.position, -Vector3.up, 0.1f)) {
-            self.Translate(new Vector3(0.0f, -3.0f, 0.0f) * Time.deltaTime);
-        }
-        yield return null;
+        selfRigidbody = gameObject.AddComponent<Rigidbody>();
+        selfRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     private void Update()

@@ -13,8 +13,8 @@ public class OnBoatZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
-        {          
+        if (other.CompareTag("Player"))
+        {
             Transform player = other.transform;
             player.SetParent(self);
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
@@ -26,6 +26,10 @@ public class OnBoatZone : MonoBehaviour
                 player.position = position;
             }
         }
+        else if (other.CompareTag("Treasures"))
+        {
+            other.transform.SetParent(self);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -35,5 +39,7 @@ public class OnBoatZone : MonoBehaviour
             other.transform.SetParent(null);
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         }
+        else if (other.CompareTag("Treasures"))
+            other.transform.SetParent(null);
     }
 }
