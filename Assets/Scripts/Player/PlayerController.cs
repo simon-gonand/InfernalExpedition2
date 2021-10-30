@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
+        Debug.Log("saucisse");
         if (context.performed)
         {
             selfRigidBody.AddForce(self.forward * dashSpeed, ForceMode.Impulse);
