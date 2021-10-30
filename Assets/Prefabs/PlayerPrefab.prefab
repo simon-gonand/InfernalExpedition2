@@ -177,10 +177,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 3
   interactionDistance: 0.4
-  boatTransform: {fileID: 0}
+  dashSpeed: 5
   self: {fileID: 3207150420227362538}
-  selfCollider: {fileID: 3207150420227362537}
-  playerInput: {fileID: 3207150420227362549}
+  selfRigidBody: {fileID: -5551333406371535273}
 --- !u!114 &3207150420227362549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,10 +222,6 @@ MonoBehaviour:
     m_ActionId: 04ac00af-7e50-4866-b008-c5226b5dd8a2
     m_ActionName: Controls/PlayerMovements[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9e3ae14b-ab42-4eca-81a7-8f11f34b106c
-    m_ActionName: Controls/BoatMovements[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3207150420227362548}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
@@ -258,6 +253,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e077ef7c-8bd0-4804-a2d9-96f0e89cee87
     m_ActionName: Controls/PlayerAction[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3207150420227362548}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ff88ec45-eaeb-439d-841c-453ba6f95a32
+    m_ActionName: Controls/PlayerDash[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Controls

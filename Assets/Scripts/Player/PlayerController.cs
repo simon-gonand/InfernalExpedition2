@@ -10,12 +10,16 @@ public class PlayerController : MonoBehaviour
     private float playerSpeed;
     [SerializeField]
     [Range(0,2)]private float interactionDistance;
+    [SerializeField]
+    private float dashSpeed;
 
     [System.NonSerialized]
     public Transform boatTransform;
 
     [Header("Self References")]
     public Transform self;
+    [SerializeField]
+    private Rigidbody selfRigidBody;
 
 
     private Vector2 playerMovementInput = Vector2.zero;
@@ -46,6 +50,14 @@ public class PlayerController : MonoBehaviour
         if (isInteracting && context.performed)
             interactingWith.OnAction();
         // else attack on action pressed
+    }
+
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            selfRigidBody.AddForce(self.forward * dashSpeed, ForceMode.Impulse);
+        }
     }
 
     public void OnInteraction(InputAction.CallbackContext context)
