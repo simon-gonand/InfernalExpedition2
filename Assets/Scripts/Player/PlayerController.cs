@@ -35,10 +35,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (!isInteracting)
-            playerMovementInput = context.ReadValue<Vector2>();
-        else
+        if (isInteracting && interactingWith != null)
             interactingWith.OnMove(context.ReadValue<Vector2>());
+        else
+            playerMovementInput = context.ReadValue<Vector2>();
     }
 
     public void OnAction(InputAction.CallbackContext context)
@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteraction(InputAction.CallbackContext context)
     {
-        //Debug.Log(context.performed);
         if (!isInteracting && context.performed)
         {
             Vector3 startRayPos = self.position;
@@ -67,6 +66,7 @@ public class PlayerController : MonoBehaviour
         else if (isInteracting && context.performed)
         {
             interactingWith.UninteractWith(this);
+            interactingWith = null;
         }
     }
 
