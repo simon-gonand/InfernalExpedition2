@@ -12684,6 +12684,10 @@ PrefabInstance:
       propertyPath: minSpeed
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 332886954977132044, guid: c8e909e23e583c44890dd052a563af6d, type: 3}
+      propertyPath: steerSpeed
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 332886954977132045, guid: c8e909e23e583c44890dd052a563af6d, type: 3}
       propertyPath: m_CollisionDetection
       value: 1
@@ -12722,15 +12726,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 332886954977132276, guid: c8e909e23e583c44890dd052a563af6d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 332886954977132276, guid: c8e909e23e583c44890dd052a563af6d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 332886954977132276, guid: c8e909e23e583c44890dd052a563af6d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 332886954977132276, guid: c8e909e23e583c44890dd052a563af6d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

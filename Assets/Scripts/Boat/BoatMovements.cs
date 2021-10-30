@@ -17,6 +17,7 @@ public class BoatMovements : MonoBehaviour
     public Transform self;
 
     private float currentSpeed;
+    private float currentRotation;
 
     public static BoatMovements instance;
 
@@ -36,7 +37,9 @@ public class BoatMovements : MonoBehaviour
 
     public void Steer(float steering)
     {
-        steering *= steerSpeed;
-        selfRigidBody.MoveRotation(selfRigidBody.rotation * Quaternion.Euler(new Vector3(0, steering, 0) * Time.deltaTime));
+        steering *= steerSpeed * Time.deltaTime;
+        currentRotation = currentRotation + steering;
+        currentRotation = Mathf.Clamp(currentRotation, -45.0f, 45.0f);
+        self.rotation = Quaternion.Euler(new Vector3(0.0f, currentRotation, 0.0f));
     }
 }
