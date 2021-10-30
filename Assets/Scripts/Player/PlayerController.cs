@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public Transform self;
     [SerializeField]
     private Rigidbody selfRigidBody;
+    public Transform carryingSnapPoint;
 
 
     private Vector2 playerMovementInput = Vector2.zero;

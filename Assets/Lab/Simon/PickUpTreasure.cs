@@ -9,8 +9,8 @@ public class PickUpTreasure : MonoBehaviour, IInteractable
 
     public void InteractWith(PlayerController player)
     {
-        Debug.Log("saucisse");
         player.isCarrying = true;
+        self.position = player.carryingSnapPoint.position;
         self.SetParent(player.self);
     }
 
@@ -28,17 +28,15 @@ public class PickUpTreasure : MonoBehaviour, IInteractable
     {
         player.isCarrying = false;
         self.SetParent(null);
+        //Debug.Log("saucisse");
+        StartCoroutine(ApplyGravity());
     }
 
-    // Start is called before the first frame update
-    void Start()
+    IEnumerator ApplyGravity()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        while (!Physics.Raycast(self.position, -Vector3.up, 0.1f)) {
+            self.Translate(new Vector3(0.0f, -3.0f, 0.0f) * Time.deltaTime);
+        }
+        yield return null;
     }
 }
