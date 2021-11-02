@@ -9,8 +9,8 @@ public class Treasure : MonoBehaviour, IInteractable
     [SerializeField]
     private Rigidbody selfRigidbody;
     public TreasuresCategory category;
-
     private PlayerController playerInteractingWith;
+    private bool isGrounded = false;
 
     public void InteractWith(PlayerController player)
     {
@@ -31,11 +31,12 @@ public class Treasure : MonoBehaviour, IInteractable
         playerInteractingWith.isCarrying = false;
         playerInteractingWith.treasureCarried = null;
         playerInteractingWith = null;
+        isGrounded = false;
     }
 
+    // Nothing on move
     public void OnMove(Vector2 movements)
     {
-        // Nothing on move
     }
 
     public void UninteractWith(PlayerController player)
@@ -45,15 +46,21 @@ public class Treasure : MonoBehaviour, IInteractable
         playerInteractingWith = null;
         self.SetParent(null);
         selfRigidbody.isKinematic = false;
+        isGrounded = false;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        Vector3 raycastStartPos = self.position;
-        raycastStartPos.y -= self.lossyScale.y / 2;
-        if (Physics.Raycast(raycastStartPos, -Vector3.up, 0.03f))
+        if (!isGrounded)
         {
-            selfRigidbody.isKinematic = true;
+            Vector3 raycastStartPos = self.position;
+            raycastStartPos.y -= self.lossyScale.y / 2;
+            if (Physics.Raycast(raycastStartPos, -Vector3.up, 0.05f))
+            {
+                selfRigidbody.isKinematic = true;
+                isGrounded = true;
+            }
+            
         }
     }
 }
