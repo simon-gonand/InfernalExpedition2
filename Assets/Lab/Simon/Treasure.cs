@@ -2,27 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUpTreasure : MonoBehaviour, IInteractable
+public class Treasure : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    private float launchForce;
-
-    [SerializeField]
     private Transform self;
-
+    [SerializeField]
     private Rigidbody selfRigidbody;
-    private PlayerController playerInteractingWith;
+    public TreasuresCategory category;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (Physics.Raycast(self.position, -Vector3.up, 0.1f))
-            Destroy(selfRigidbody);
-    }
+    private PlayerController playerInteractingWith;
 
     public void InteractWith(PlayerController player)
     {
         playerInteractingWith = player;
         player.isCarrying = true;
+        player.treasureCarried = category;
         self.position = player.carryingSnapPoint.position;
         self.forward = player.transform.forward;
         self.SetParent(player.self);
@@ -32,10 +26,10 @@ public class PickUpTreasure : MonoBehaviour, IInteractable
     {
         // Launch
         self.SetParent(null);
-        selfRigidbody = gameObject.AddComponent<Rigidbody>();
-        selfRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-        selfRigidbody.AddForce((self.forward + self.up) * launchForce, ForceMode.Impulse);
+        selfRigidbody.isKinematic = false;
+        selfRigidbody.AddForce((self.forward + self.up) * category.launchForce, ForceMode.Impulse);
         playerInteractingWith.isCarrying = false;
+        playerInteractingWith.treasureCarried = null;
         playerInteractingWith = null;
     }
 
@@ -47,14 +41,19 @@ public class PickUpTreasure : MonoBehaviour, IInteractable
     public void UninteractWith(PlayerController player)
     {
         player.isCarrying = false;
+        player.treasureCarried = null;
         playerInteractingWith = null;
         self.SetParent(null);
-        selfRigidbody = gameObject.AddComponent<Rigidbody>();
-        selfRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        selfRigidbody.isKinematic = false;
     }
 
     private void Update()
     {
-          
+        Vector3 raycastStartPos = self.position;
+        raycastStartPos.y -= self.lossyScale.y / 2;
+        if (Physics.Raycast(raycastStartPos, -Vector3.up, 0.03f))
+        {
+            selfRigidbody.isKinematic = true;
+        }
     }
 }

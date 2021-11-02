@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
     private bool _isCarrying = false;
     public bool isCarrying { get { return _isCarrying; } set { _isCarrying = value; } }
+    private TreasuresCategory _treasureCarried;
+    public TreasuresCategory treasureCarried { set { _treasureCarried = value; } }
 
     private bool _isOnBoat = true;
     public bool isOnBoat { get { return _isOnBoat; } set { _isOnBoat = value; } }
@@ -88,8 +90,11 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovement()
     {
+        float currentSpeed = playerSpeed;
+        if (_isCarrying && _treasureCarried != null)
+            currentSpeed -= _treasureCarried.speedMalus;
         Vector3 move = new Vector3(playerMovementInput.x, 0.0f, playerMovementInput.y);
-        self.Translate(move * Time.deltaTime * playerSpeed, Space.World);
+        self.Translate(move * Time.deltaTime * currentSpeed, Space.World);
         if (move != Vector3.zero)
             self.forward = move;
     }
