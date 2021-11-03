@@ -75,9 +75,8 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DashTimer()
     {
-        new WaitForSeconds(playerPreset.dashTime);
-        selfRigidBody.velocity = BoatMovements.instance.selfRigidBody.velocity;
-        yield return null;
+        yield return new WaitForSeconds(playerPreset.dashTime);
+        selfRigidBody.velocity = Vector3.zero;
     }
 
     // When the player pressed the interaction button
