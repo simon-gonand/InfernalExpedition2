@@ -4,42 +4,50 @@ using UnityEngine;
 
 public class BoatMovements : MonoBehaviour
 {
-    [SerializeField]
-    private float steerSpeed;
-    [SerializeField]
-    [Header("Stats")]
-    private float minSpeed;
-    [SerializeField]
-    private float maxSpeed;
-
     [Header("References")]
     public Rigidbody selfRigidBody;
     public Transform self;
+    [SerializeField]
+    private BoatPresets boatPreset;
 
     private float currentSpeed;
     private float currentRotation;
 
+
+    // BoatMovements Class is a singleton
     public static BoatMovements instance;
 
     private void Awake()
     {
         instance = this;
 
-        currentSpeed = maxSpeed / 2 - minSpeed / 2;
+        // Initiate a speed at the beginning of the game
+        currentSpeed = boatPreset.maxSpeed - boatPreset.minSpeed;
+        Debug.Log(currentSpeed);
     }
 
+    // Set the velocity of the boat
     public void SetVelocity(float speed)
     {
-        if (speed < 0 && currentSpeed > minSpeed || speed > 0 && currentSpeed < maxSpeed)
-            currentSpeed += speed;
+        // Clamp speed
+        currentSpeed += speed;
+        currentSpeed = Mathf.Clamp(currentSpeed, boatPreset.minSpeed, boatPreset.maxSpeed);
+
+        // Update velocity
         selfRigidBody.velocity = self.forward * Time.deltaTime * currentSpeed;
     }
 
+    // Function that steer the boat
     public void Steer(float steering)
     {
-        steering *= steerSpeed * Time.deltaTime;
+        // Multiply by the steerSpeed of the boat
+        steering *= boatPreset.steerSpeed * Time.deltaTime;
+
+        // Clamp the rotation of the boat
         currentRotation = currentRotation + steering;
         currentRotation = Mathf.Clamp(currentRotation, -45.0f, 45.0f);
+
+        // Update the rotation of the boat
         self.rotation = Quaternion.Euler(new Vector3(0.0f, currentRotation, 0.0f));
     }
 }

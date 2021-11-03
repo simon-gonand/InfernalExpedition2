@@ -13,6 +13,7 @@ public class FollowingBoat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Get the offset between the camera and the boat
         initialOffset = self.position - BoatMovements.instance.self.position;
         initialPos = self.position;
     }
@@ -20,6 +21,7 @@ public class FollowingBoat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Update the position of the camera according to the boat on Z
         self.position = new Vector3(initialPos.x, initialPos.y, BoatMovements.instance.self.position.z + initialOffset.z) ;
     }
 }

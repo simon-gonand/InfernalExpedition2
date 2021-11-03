@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private Material player4Material;
 
+    // Update material of player when one is joining to avoid them to have the same color
     public void OnPlayerJoined(PlayerInput playerInput)
     {
         float playerSpawnOffset = 0.0f;
@@ -38,6 +39,8 @@ public class PlayerManager : MonoBehaviour
             default:
                 break;
         }
+
+        // Update players spawn positions according to which player is spawning
         Vector3 playerSpawnPosition = BoatMovements.instance.self.position;
         playerSpawnPosition.y += 1.0f;
         playerSpawnPosition.z += playerInput.playerIndex * playerSpawnOffset;

@@ -171,8 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 6383630120241030602, guid: 25391bd6561680e41af5c46686c51cb0, type: 3}
-  fireSpeed: 20
-  fireRate: 1
+  canonPreset: {fileID: 11400000, guid: 78672e6a2cea3b542a73fb0eb6224f7b, type: 2}
   self: {fileID: 7872276856116371726}
   snapPoint: {fileID: 6367230173050247790}
   ballSpawnPoint: {fileID: 6269124129524114751}

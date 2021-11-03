@@ -1734,7 +1734,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1360
+  m_Name: pb_Mesh-4800
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12944,6 +12944,10 @@ PrefabInstance:
       propertyPath: minSpeed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 332886954977132044, guid: c8e909e23e583c44890dd052a563af6d, type: 3}
+      propertyPath: boatPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: 9387514f69e88c749ad05373ef975849, type: 2}
     - target: {fileID: 332886954977132044, guid: c8e909e23e583c44890dd052a563af6d, type: 3}
       propertyPath: steerSpeed
       value: 30

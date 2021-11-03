@@ -11,28 +11,20 @@ public class EnterInBoat : MonoBehaviour
     private bool isPlayerClimbingInBoat = false;
     private PlayerController player;
 
+    // When the player is entering in the zone, it climbs on the boat
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !isPlayerClimbingInBoat) {
             player = other.GetComponent<PlayerController>();
+
+            // Let the player going out the boat
             if (!player.isOnBoat)
             {
                 player.self.position = playerOnBoatEntryPoint.position;
             }
 
+            // Update if the player is on the boat or not
             player.isOnBoat = !player.isOnBoat;
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
     }
 }

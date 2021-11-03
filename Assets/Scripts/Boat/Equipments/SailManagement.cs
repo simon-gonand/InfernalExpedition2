@@ -9,42 +9,44 @@ public class SailManagement : MonoBehaviour, IInteractable
 
     private float speed = 0.0f;
 
+    // When the player is interacting with the sail
     public void InteractWith(PlayerController player)
     {
         player.isInteracting = true;
 
+        // Snap the player to the sail
         Vector3 newPlayerPosition = snapPoint.position;
         newPlayerPosition.y += player.self.lossyScale.y / 2;
         player.self.position = newPlayerPosition;
         player.self.forward = snapPoint.forward;
     }
 
+    // When the player is not interacting with the sail anymore
     public void UninteractWith(PlayerController player)
     {
         player.isInteracting = false;
 
+        // Boat can't increase or decrease speed anymore
         speed = 0.0f;
     }
 
+    // When the player pressed the action button when he's on the sail
+    // No Action possible
     public void OnAction()
     {
-        // No Action possible
     }
 
+    // When the player is moving when he's on the sail
     public void OnMove(Vector2 movements)
     {
+        // Update speed value
         speed = movements.y;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        // Set the velocity of the boat
         BoatMovements.instance.SetVelocity(speed);
     }
 }

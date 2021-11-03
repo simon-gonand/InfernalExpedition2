@@ -5,12 +5,8 @@ using UnityEngine;
 public class FireCanon : MonoBehaviour, IInteractable
 {
     public GameObject ball;
-
     [SerializeField]
-    private float fireSpeed;
-    [SerializeField]
-    private float fireRate = 1.0f;
-
+    private CanonPresets canonPreset;
     [SerializeField]
     private Transform self;
     [SerializeField]
@@ -20,6 +16,7 @@ public class FireCanon : MonoBehaviour, IInteractable
 
     private float nextFire;
 
+    // When the player is interacting with the canon
     public void InteractWith(PlayerController player)
     {
         player.isInteracting = true;
@@ -31,16 +28,19 @@ public class FireCanon : MonoBehaviour, IInteractable
         player.self.forward = snapPoint.forward;
     }
 
+    // When the player is not interacting with the canon anymore
     public void UninteractWith(PlayerController player)
     {
         player.isInteracting = false;
     }
 
+    // When the player is pressing the action button when he's on the canon
     public void OnAction()
     {
         Fire();
     }
 
+    // When the player is moving when he's on the canon
     public void OnMove(Vector2 movements)
     {
         // Turn canon ?
@@ -48,15 +48,19 @@ public class FireCanon : MonoBehaviour, IInteractable
 
     private void Fire()
     {
+        // Check cooldown if the player can shoot again
         if (Time.time > nextFire)
         {
+            // Instantiate canon ball
             GameObject ballClone = Instantiate(ball, ballSpawnPoint.position, self.rotation);
             Rigidbody rb = ballClone.AddComponent<Rigidbody>();
-            rb.AddForce(ballSpawnPoint.forward * fireSpeed, ForceMode.Impulse);
+            rb.AddForce(ballSpawnPoint.forward * canonPreset.fireSpeed, ForceMode.Impulse);
 
+            // Set that this canon shot the canon ball
             ballClone.GetComponent<CanonBallLifeSpan>().SetCanonWhichFired(self);
 
-            nextFire = Time.time + fireRate;
+            // Reset cooldown
+            nextFire = Time.time + canonPreset.fireRate;
         }
     }
 }
