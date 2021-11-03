@@ -22,6 +22,7 @@ public class FollowingBoat : MonoBehaviour
     void Update()
     {
         // Update the position of the camera according to the boat on Z
-        self.position = new Vector3(initialPos.x, initialPos.y, BoatMovements.instance.self.position.z + initialOffset.z) ;
+        self.position = new Vector3(BoatMovements.instance.self.position.x + initialOffset.x, initialPos.y, 
+            BoatMovements.instance.self.position.z + initialOffset.z) ;
     }
 }

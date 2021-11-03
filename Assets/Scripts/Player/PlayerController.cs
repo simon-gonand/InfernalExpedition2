@@ -117,5 +117,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerMovement();
+
+        //Debug.DrawRay(, Vector3.down, Color.red);
     }
 }

@@ -23,7 +23,6 @@ public class BoatMovements : MonoBehaviour
 
         // Initiate a speed at the beginning of the game
         currentSpeed = boatPreset.maxSpeed - boatPreset.minSpeed;
-        Debug.Log(currentSpeed);
     }
 
     // Set the velocity of the boat

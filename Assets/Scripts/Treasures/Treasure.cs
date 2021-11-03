@@ -10,7 +10,8 @@ public class Treasure : MonoBehaviour, IInteractable
     private Rigidbody selfRigidbody;
     public TreasuresCategory category;
 
-    private PlayerController playerInteractingWith;
+    [System.NonSerialized]
+    public PlayerController playerInteractingWith;
     private bool isGrounded = false;
 
     // When player is interacting with the treasure

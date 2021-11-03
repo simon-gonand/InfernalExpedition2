@@ -24,10 +24,10 @@ public class OnBoatZone : MonoBehaviour
                 RigidbodyConstraints.FreezePositionY;
 
             // Snap the y position of the player to be sure that the player is not inside but on the boat
-            if (player.position.y - player.lossyScale.y < selfCollider.size.y + selfCollider.center.y)
+            if (player.position.y - player.lossyScale.y - 12.0f <= selfCollider.size.y + selfCollider.center.y)
             {
                 Vector3 position = player.position;
-                position.y += selfCollider.size.y;
+                position.y += selfCollider.size.y + 0.1f;
                 player.position = position;
             }
         }
@@ -53,7 +53,10 @@ public class OnBoatZone : MonoBehaviour
 
         // If a treasure is getting off the boat
         else if (other.CompareTag("Treasures"))
-            // Just remove the parent
-            other.transform.SetParent(null);
+        {
+            if(other.GetComponent<Treasure>().playerInteractingWith == null)
+                // Just remove the parent
+                other.transform.SetParent(null);
+        }
     }
 }

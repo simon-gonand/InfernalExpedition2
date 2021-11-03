@@ -42,7 +42,7 @@ public class PlayerManager : MonoBehaviour
 
         // Update players spawn positions according to which player is spawning
         Vector3 playerSpawnPosition = BoatMovements.instance.self.position;
-        playerSpawnPosition.y += 1.0f;
+        playerSpawnPosition.y += 3.0f;
         playerSpawnPosition.z += playerInput.playerIndex * playerSpawnOffset;
         playerInput.gameObject.transform.position = playerSpawnPosition;
     }

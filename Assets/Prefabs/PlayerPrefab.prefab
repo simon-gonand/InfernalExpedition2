@@ -94,7 +94,7 @@ Transform:
   m_GameObject: {fileID: 3207150420227362543}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.4, y: 1.103, z: -4.24}
-  m_LocalScale: {x: 0.2587728, y: 0.2587728, z: 0.2587728}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 8839412632781938542}
   - {fileID: 3898190408893326250}
@@ -176,12 +176,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 334e28f01c7c7d248bf7ca8196840719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 3
-  interactionDistance: 0.4
-  dashSpeed: 5
   self: {fileID: 3207150420227362538}
   selfRigidBody: {fileID: -5551333406371535273}
   carryingSnapPoint: {fileID: 3898190408893326250}
+  playerPreset: {fileID: 11400000, guid: 6e8ed946df7976d4e939d4c409344454, type: 2}
 --- !u!114 &3207150420227362549
 MonoBehaviour:
   m_ObjectHideFlags: 0
