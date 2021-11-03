@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
         // If the player is interacting with something he can't move
         if (_isInteracting && interactingWith != null)
             interactingWith.OnMove(context.ReadValue<Vector2>());
+            
         else
             playerMovementInput = context.ReadValue<Vector2>();
     }
@@ -94,6 +95,9 @@ public class PlayerController : MonoBehaviour
             int layerMask = 1 << LayerMask.NameToLayer("Interactable");
             if (Physics.Raycast(startRayPos, self.forward, out hit, playerPreset.interactionDistance, layerMask))
             {
+                // Stop player's movements
+                playerMovementInput = Vector2.zero;
+
                 // Set with which interactable the player is interacting with
                 interactingWith = hit.collider.gameObject.GetComponent<IInteractable>();
                 interactingWith.InteractWith(this);

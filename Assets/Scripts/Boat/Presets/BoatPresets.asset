@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BoatPresets
   m_EditorClassIdentifier: 
   steerSpeed: 30
-  minSpeed: 0
-  maxSpeed: 100
+  minSpeed: 50
+  maxSpeed: 150
