@@ -22,6 +22,13 @@ public class EnterInBoat : MonoBehaviour
             {
                 player.self.position = playerOnBoatEntryPoint.position;
             }
+            else
+            {
+                player.isGrounded = false;
+                // Update rigidbody constraints to apply gravity
+                other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                player.self.SetParent(null);
+            }
 
             // Update if the player is on the boat or not
             player.isOnBoat = !player.isOnBoat;

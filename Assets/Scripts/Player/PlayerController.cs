@@ -6,8 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Transform self;
-    [SerializeField]
-    private Rigidbody selfRigidBody;
+    public Rigidbody selfRigidBody;
     public Transform carryingSnapPoint;
     [SerializeField]
     private PlayerPresets playerPreset;
@@ -31,6 +30,9 @@ public class PlayerController : MonoBehaviour
 
     private bool _isOnBoat = true;
     public bool isOnBoat { get { return _isOnBoat; } set { _isOnBoat = value; } }
+
+    private bool _isGrounded = false;
+    public bool isGrounded { set { _isGrounded = value; } }
     #endregion
 
     // Start is called before the first frame update
@@ -117,7 +119,27 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerMovement();
+        if (_isOnBoat && !_isGrounded)
+        {
+            Vector3 rayPos = self.position;
+            rayPos.y -= self.lossyScale.y;
+            RaycastHit hit;
+            if (Physics.Raycast(rayPos, -Vector3.up, out hit, 0.05f))
+            {
+                if (hit.collider.CompareTag("Boat"))
+                {
+                    // Set the zone as parent of the player to move with it
+                    self.SetParent(hit.transform);
 
-        //Debug.DrawRay(, Vector3.down, Color.red);
+                    self.position = new Vector3(self.position.x, self.position.y - 0.05f, self.position.z);
+
+                    // Update the constraints of the rigid body to avoid gravity
+                    selfRigidBody.constraints = RigidbodyConstraints.FreezeRotation |
+                        RigidbodyConstraints.FreezePositionY;
+
+                    isGrounded = true;
+                }
+            }
+        }
     }
 }
