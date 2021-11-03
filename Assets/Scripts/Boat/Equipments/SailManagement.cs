@@ -16,7 +16,7 @@ public class SailManagement : MonoBehaviour, IInteractable
 
         // Snap the player to the sail
         Vector3 newPlayerPosition = snapPoint.position;
-        newPlayerPosition.y += player.self.lossyScale.y / 2;
+        newPlayerPosition.y = player.self.position.y;
         player.self.position = newPlayerPosition;
         player.self.forward = snapPoint.forward;
     }
