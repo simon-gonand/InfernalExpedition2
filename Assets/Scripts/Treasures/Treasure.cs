@@ -78,8 +78,13 @@ public class Treasure : MonoBehaviour, IInteractable
             // Set the position of the raycast
             Vector3 raycastStartPos = self.position;
             raycastStartPos.y -= self.lossyScale.y / 2;
-            if (Physics.Raycast(raycastStartPos, -Vector3.up, 0.05f))
+            RaycastHit hit;
+            if (Physics.Raycast(raycastStartPos, -Vector3.up, out hit, 0.05f))
             {
+                if (hit.collider.CompareTag("Boat"))
+                {
+                    self.SetParent(BoatMovements.instance.self);
+                }
                 // Disable rigidbody
                 selfRigidbody.isKinematic = true;
                 isGrounded = true;

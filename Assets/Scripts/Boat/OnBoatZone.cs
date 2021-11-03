@@ -50,7 +50,6 @@ public class OnBoatZone : MonoBehaviour
             // Update rigidbody constraints to apply gravity
             other.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         }
-
         // If a treasure is getting off the boat
         else if (other.CompareTag("Treasures"))
         {
