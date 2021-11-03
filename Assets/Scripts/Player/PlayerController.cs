@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 playerMovementInput = Vector2.zero;
 
     private IInteractable interactingWith;
+    private float nextDash;
 
     #region boolean
     private bool _isInteracting = false;
@@ -63,10 +64,20 @@ public class PlayerController : MonoBehaviour
     // When the player pressed the dash button
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && Time.time > nextDash)
         {
             selfRigidBody.AddForce(self.forward * playerPreset.dashSpeed, ForceMode.Impulse);
+            
+            nextDash = Time.time + playerPreset.dashCooldown;
+            StartCoroutine(DashTimer());
         }
+    }
+
+    IEnumerator DashTimer()
+    {
+        new WaitForSeconds(playerPreset.dashTime);
+        selfRigidBody.velocity = BoatMovements.instance.selfRigidBody.velocity;
+        yield return null;
     }
 
     // When the player pressed the interaction button

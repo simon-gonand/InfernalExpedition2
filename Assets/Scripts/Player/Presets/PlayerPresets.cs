@@ -7,4 +7,6 @@ public class PlayerPresets : ScriptableObject
     [Tooltip("Define the distance from where the player can interact with interactables")]
     [Range(0, 2)] public float interactionDistance;
     public float dashSpeed;
+    public float dashTime;
+    public float dashCooldown;
 }
