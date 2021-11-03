@@ -125,12 +125,11 @@ public class PlayerController : MonoBehaviour
             self.forward = move;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void UpdatePlayerOnBoat()
     {
-        PlayerMovement();
         if (_isOnBoat && !_isGrounded)
         {
+            // Raycast the ground if player is on the boat
             Vector3 rayPos = self.position;
             rayPos.y -= self.lossyScale.y;
             RaycastHit hit;
@@ -151,5 +150,12 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        PlayerMovement();
+        UpdatePlayerOnBoat();
     }
 }
