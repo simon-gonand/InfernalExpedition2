@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
         boatTransform = BoatMovements.instance.self;
     }
 
+    #region InputsManagement
     // When the player moves
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -111,6 +113,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnReload(InputAction.CallbackContext context)
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    #endregion
 
     // Update movements of the player
     private void PlayerMovement()

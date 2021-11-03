@@ -49,6 +49,14 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Press""
+                },
+                {
+                    ""name"": ""ReloadScene"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad21794e-7b57-4a09-9e44-673a0eec6ea7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -183,6 +191,28 @@ public class @Controller : IInputActionCollection, IDisposable
                     ""action"": ""PlayerDash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""64fe3709-6e0f-4792-a15f-e8e82ce1cbc9"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""ReloadScene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e88f4d4d-3f2d-448a-a677-75c27a30ad76"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ReloadScene"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -223,6 +253,7 @@ public class @Controller : IInputActionCollection, IDisposable
         m_Controls_PlayerInteraction = m_Controls.FindAction("PlayerInteraction", throwIfNotFound: true);
         m_Controls_PlayerAction = m_Controls.FindAction("PlayerAction", throwIfNotFound: true);
         m_Controls_PlayerDash = m_Controls.FindAction("PlayerDash", throwIfNotFound: true);
+        m_Controls_ReloadScene = m_Controls.FindAction("ReloadScene", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -276,6 +307,7 @@ public class @Controller : IInputActionCollection, IDisposable
     private readonly InputAction m_Controls_PlayerInteraction;
     private readonly InputAction m_Controls_PlayerAction;
     private readonly InputAction m_Controls_PlayerDash;
+    private readonly InputAction m_Controls_ReloadScene;
     public struct ControlsActions
     {
         private @Controller m_Wrapper;
@@ -284,6 +316,7 @@ public class @Controller : IInputActionCollection, IDisposable
         public InputAction @PlayerInteraction => m_Wrapper.m_Controls_PlayerInteraction;
         public InputAction @PlayerAction => m_Wrapper.m_Controls_PlayerAction;
         public InputAction @PlayerDash => m_Wrapper.m_Controls_PlayerDash;
+        public InputAction @ReloadScene => m_Wrapper.m_Controls_ReloadScene;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -305,6 +338,9 @@ public class @Controller : IInputActionCollection, IDisposable
                 @PlayerDash.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPlayerDash;
                 @PlayerDash.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPlayerDash;
                 @PlayerDash.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnPlayerDash;
+                @ReloadScene.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnReloadScene;
+                @ReloadScene.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnReloadScene;
+                @ReloadScene.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnReloadScene;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -321,6 +357,9 @@ public class @Controller : IInputActionCollection, IDisposable
                 @PlayerDash.started += instance.OnPlayerDash;
                 @PlayerDash.performed += instance.OnPlayerDash;
                 @PlayerDash.canceled += instance.OnPlayerDash;
+                @ReloadScene.started += instance.OnReloadScene;
+                @ReloadScene.performed += instance.OnReloadScene;
+                @ReloadScene.canceled += instance.OnReloadScene;
             }
         }
     }
@@ -349,5 +388,6 @@ public class @Controller : IInputActionCollection, IDisposable
         void OnPlayerInteraction(InputAction.CallbackContext context);
         void OnPlayerAction(InputAction.CallbackContext context);
         void OnPlayerDash(InputAction.CallbackContext context);
+        void OnReloadScene(InputAction.CallbackContext context);
     }
 }
