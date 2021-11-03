@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
     // When the player pressed the dash button
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.performed && Time.time > nextDash)
+        if (context.performed && Time.time > nextDash && !_isInteracting)
         {
             selfRigidBody.AddForce(self.forward * playerPreset.dashSpeed, ForceMode.Impulse);
             
